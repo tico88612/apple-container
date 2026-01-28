@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-// Copyright © 2025-2026 Apple Inc. and the container project authors.
+// Copyright © 2026 Apple Inc. and the container project authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,23 +16,23 @@
 
 import ArgumentParser
 import ContainerAPIClient
+import Containerization
+import ContainerizationOCI
 
 extension Application {
-    public struct RegistryCommand: AsyncLoggableCommand {
-        public static let configuration = CommandConfiguration(
-            commandName: "registry",
-            abstract: "Manage registry logins",
-            subcommands: [
-                Login.self,
-                Logout.self,
-                List.self,
-            ],
-            aliases: ["r"]
-        )
-
-        public init() {}
-
+    public struct List: AsyncLoggableCommand {
         @OptionGroup
         public var logOptions: Flags.Logging
+
+        public init() {}
+        public static let configuration = CommandConfiguration(
+            commandName: "list",
+            abstract: "List all logined registries",
+            aliases: ["ls"])
+
+        public func run() async throws {
+            let keychain = KeychainHelper(id: Constants.keychainID)
+            try keychain.listDomains().forEach { print($0) }
+        }
     }
 }
