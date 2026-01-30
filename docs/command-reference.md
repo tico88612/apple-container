@@ -909,6 +909,24 @@ container registry logout [--debug] <registry>
 
 No options.
 
+### `container registry list`
+
+Lists container registry domains for which login credentials are currently stored.
+
+**Usage**
+
+```bash
+container registry list [--debug]
+```
+
+**Arguments**
+
+No arguments.
+
+**Options**
+
+No options.
+
 ## System Management
 
 System commands manage the container apiserver, logs, DNS settings and kernel. These are only available on macOS hosts.
